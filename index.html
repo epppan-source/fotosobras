@@ -200,7 +200,7 @@
 <script>
 const CLIENT_ID = '504528754299-ita27njppi7v091vc4c5mrm61ufmiuih.apps.googleusercontent.com';
 const API_KEY   = 'AIzaSyCMUUd-Ll1L8Nx9t0EEEOOusye2HLFlnt0';
-const SCOPE     = 'https://www.googleapis.com/auth/drive.readonly';
+const SCOPE     = 'https://www.googleapis.com/auth/drive.readonly https://www.googleapis.com/auth/drive.file';
 
 let accessToken = null;
 let tokenClient = null;
@@ -260,6 +260,7 @@ function openPicker() {
     .setMimeTypes('image/jpeg,image/png,image/webp,image/heic');
 
   const picker = new google.picker.PickerBuilder()
+    .setAppId('504528754299')
     .setOAuthToken(accessToken)
     .setDeveloperKey(API_KEY)
     .setCallback(pickerCallback)
