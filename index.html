@@ -262,7 +262,6 @@ function openPicker() {
     .setTitle('Selecione as fotos para triagem')
     .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
     .addView(new google.picker.PhotosView())
-    .addView(new google.picker.PhotoAlbumView())
     .addView(new google.picker.DocsView(google.picker.ViewId.PHOTOS))
     .build();
 
