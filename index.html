@@ -255,14 +255,17 @@ function openPicker() {
   if (!pickerReady) { showToast('Aguarde um momento...', ''); setTimeout(openPicker, 1000); return; }
   if (!accessToken) { showToast('Faça login primeiro', 'error'); return; }
 
+  const view = new google.picker.DocsView()
+    .setIncludeFolders(false)
+    .setMimeTypes('image/jpeg,image/png,image/webp,image/heic');
+
   const picker = new google.picker.PickerBuilder()
     .setOAuthToken(accessToken)
     .setDeveloperKey(API_KEY)
     .setCallback(pickerCallback)
     .setTitle('Selecione as fotos para triagem')
     .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
-    .addView(new google.picker.PhotosView())
-    .addView(new google.picker.DocsView(google.picker.ViewId.PHOTOS))
+    .addView(view)
     .build();
 
   picker.setVisible(true);
