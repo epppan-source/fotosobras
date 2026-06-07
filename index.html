@@ -6,374 +6,82 @@
 <title>FotoObras SEAGRO</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap');
-
   :root {
-    --bg: #0e0f11;
-    --surface: #16181c;
-    --surface2: #1e2026;
-    --border: #2a2d35;
-    --accent: #f5a623;
-    --accent2: #e8843a;
-    --text: #f0f0f0;
-    --muted: #7a7f8e;
-    --green: #4caf82;
-    --red: #e05c5c;
-    --blue: #5b9bd5;
-    --purple: #9b7de8;
+    --bg:#0e0f11;--surface:#16181c;--surface2:#1e2026;--border:#2a2d35;
+    --accent:#f5a623;--accent2:#e8843a;--text:#f0f0f0;--muted:#7a7f8e;
+    --green:#4caf82;--red:#e05c5c;
   }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* HEADER */
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 32px;
-    border-bottom: 1px solid var(--border);
-    background: var(--surface);
-  }
-  .logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 1.3rem;
-    letter-spacing: -0.5px;
-  }
-  .logo span { color: var(--accent); }
-
-  #btn-login {
-    background: var(--accent);
-    color: #000;
-    border: none;
-    padding: 10px 22px;
-    border-radius: 8px;
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: opacity 0.2s;
-  }
-  #btn-login:hover { opacity: 0.85; }
-  #btn-login:disabled { opacity: 0.4; cursor: default; }
-
-  #user-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.85rem;
-    color: var(--muted);
-  }
-  #user-info img {
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    border: 2px solid var(--accent);
-  }
-  #btn-logout {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    padding: 6px 14px;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  #btn-logout:hover { border-color: var(--red); color: var(--red); }
-
-  /* MAIN */
-  main { flex: 1; padding: 32px; max-width: 1200px; margin: 0 auto; width: 100%; }
-
-  /* TELA DE BOAS VINDAS */
-  #screen-welcome {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 60vh;
-    text-align: center;
-    gap: 20px;
-  }
-  #screen-welcome h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: 2.8rem;
-    font-weight: 800;
-    line-height: 1.1;
-  }
-  #screen-welcome h1 span { color: var(--accent); }
-  #screen-welcome p { color: var(--muted); font-size: 1rem; max-width: 480px; line-height: 1.6; }
-  .features {
-    display: flex;
-    gap: 16px;
-    margin-top: 16px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .feature-pill {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 8px 18px;
-    font-size: 0.85rem;
-    color: var(--muted);
-  }
-  .feature-pill span { margin-right: 6px; }
-
-  /* TELA DE TRIAGEM */
-  #screen-triage { display: none; }
-
-  .triage-layout {
-    display: grid;
-    grid-template-columns: 1fr 340px;
-    gap: 24px;
-    align-items: start;
-  }
-
-  /* FOTO PRINCIPAL */
-  .photo-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-  }
-  .photo-card img {
-    width: 100%;
-    max-height: 520px;
-    object-fit: contain;
-    background: #000;
-    display: block;
-  }
-  .photo-meta {
-    padding: 16px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .photo-meta .date { color: var(--muted); font-size: 0.85rem; }
-  .photo-counter {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.85rem;
-    color: var(--accent);
-    font-weight: 700;
-  }
-
-  /* PAINEL DIREITO */
-  .panel { display: flex; flex-direction: column; gap: 20px; }
-
-  .panel-section {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px;
-  }
-  .panel-section h3 {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 14px;
-  }
-
-  /* SUGESTÃO DA IA */
-  .ai-suggestion {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    margin-bottom: 12px;
-  }
-  .ai-icon {
-    font-size: 1.4rem;
-    flex-shrink: 0;
-  }
-  .ai-text { font-size: 0.88rem; line-height: 1.5; }
-  .ai-text strong { color: var(--accent); display: block; margin-bottom: 2px; }
-  .ai-text span { color: var(--muted); }
-
-  /* BOTÕES DE CATEGORIA */
-  .category-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .cat-btn {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 16px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: var(--surface2);
-    color: var(--text);
-    font-size: 0.88rem;
-    cursor: pointer;
-    transition: all 0.15s;
-    text-align: left;
-  }
-  .cat-btn:hover { border-color: var(--accent); background: rgba(245,166,35,0.08); }
-  .cat-btn.active { border-color: var(--accent); background: rgba(245,166,35,0.15); color: var(--accent); font-weight: 600; }
-  .cat-btn .emoji { font-size: 1.1rem; width: 24px; text-align: center; }
-
-  /* BOTÃO CONFIRMAR */
-  #btn-confirm {
-    width: 100%;
-    padding: 14px;
-    background: var(--accent);
-    color: #000;
-    border: none;
-    border-radius: 10px;
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: opacity 0.2s, transform 0.1s;
-  }
-  #btn-confirm:hover { opacity: 0.88; transform: translateY(-1px); }
-  #btn-confirm:active { transform: translateY(0); }
-  #btn-confirm:disabled { opacity: 0.35; cursor: default; transform: none; }
-
-  #btn-skip {
-    width: 100%;
-    padding: 10px;
-    background: transparent;
-    color: var(--muted);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: all 0.15s;
-    margin-top: 8px;
-  }
-  #btn-skip:hover { border-color: var(--muted); color: var(--text); }
-
-  /* PROGRESSO */
-  .progress-bar-wrap {
-    height: 6px;
-    background: var(--surface2);
-    border-radius: 999px;
-    overflow: hidden;
-    margin-top: 8px;
-  }
-  .progress-bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    border-radius: 999px;
-    transition: width 0.4s ease;
-  }
-  .progress-label {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.78rem;
-    color: var(--muted);
-    margin-bottom: 6px;
-  }
-
-  /* STATS */
-  .stats-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-  .stat-item {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px;
-    text-align: center;
-  }
-  .stat-item .num {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--accent);
-    display: block;
-  }
-  .stat-item .lbl { font-size: 0.75rem; color: var(--muted); }
-
-  /* LOADING */
-  #screen-loading {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 60vh;
-    gap: 20px;
-    text-align: center;
-  }
-  .spinner {
-    width: 48px; height: 48px;
-    border: 3px solid var(--border);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  #loading-msg { color: var(--muted); font-size: 0.95rem; }
-
-  /* TELA CONCLUÍDO */
-  #screen-done {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 60vh;
-    text-align: center;
-    gap: 16px;
-  }
-  #screen-done h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: 2rem;
-    font-weight: 800;
-  }
-  #screen-done p { color: var(--muted); }
-
-  /* NOME DA OBRA */
-  #obra-name-input {
-    width: 100%;
-    padding: 10px 14px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--text);
-    font-size: 0.88rem;
-    font-family: 'Inter', sans-serif;
-    margin-top: 8px;
-    display: none;
-  }
-  #obra-name-input:focus { outline: none; border-color: var(--accent); }
-  #obra-name-input::placeholder { color: var(--muted); }
-
-  .toast {
-    position: fixed;
-    bottom: 32px;
-    right: 32px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 20px;
-    font-size: 0.88rem;
-    color: var(--text);
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.3s;
-    z-index: 999;
-  }
-  .toast.show { opacity: 1; transform: translateY(0); }
-  .toast.success { border-color: var(--green); color: var(--green); }
-  .toast.error { border-color: var(--red); color: var(--red); }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;border-bottom:1px solid var(--border);background:var(--surface)}
+  .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;letter-spacing:-0.5px}
+  .logo span{color:var(--accent)}
+  .btn-primary{background:var(--accent);color:#000;border:none;padding:10px 22px;border-radius:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;cursor:pointer;transition:opacity 0.2s}
+  .btn-primary:hover{opacity:0.85}
+  .btn-primary:disabled{opacity:0.4;cursor:default}
+  #user-info{display:flex;align-items:center;gap:10px;font-size:0.85rem;color:var(--muted)}
+  #user-info img{width:32px;height:32px;border-radius:50%;border:2px solid var(--accent)}
+  #btn-logout{background:transparent;border:1px solid var(--border);color:var(--muted);padding:6px 14px;border-radius:6px;font-size:0.8rem;cursor:pointer;transition:all 0.2s}
+  #btn-logout:hover{border-color:var(--red);color:var(--red)}
+  main{flex:1;padding:32px;max-width:1200px;margin:0 auto;width:100%}
+  .screen{display:none}
+  .screen.active{display:flex}
+  #screen-welcome,#screen-logged,#screen-loading,#screen-done{flex-direction:column;align-items:center;justify-content:center;min-height:60vh;text-align:center;gap:20px}
+  #screen-triage{display:none}
+  h1{font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;line-height:1.1}
+  h1 span{color:var(--accent)}
+  .sub{color:var(--muted);font-size:1rem;max-width:480px;line-height:1.6}
+  .features{display:flex;gap:16px;margin-top:16px;flex-wrap:wrap;justify-content:center}
+  .pill{background:var(--surface2);border:1px solid var(--border);border-radius:999px;padding:8px 18px;font-size:0.85rem;color:var(--muted)}
+  .btn-big{background:var(--accent);color:#000;border:none;padding:14px 32px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;transition:opacity 0.2s,transform 0.1s;margin-top:8px}
+  .btn-big:hover{opacity:0.88;transform:translateY(-1px)}
+  .btn-big:disabled{opacity:0.4;cursor:default;transform:none}
+  .triage-layout{display:grid;grid-template-columns:1fr 340px;gap:24px;align-items:start}
+  .photo-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+  .photo-card img{width:100%;max-height:520px;object-fit:contain;background:#000;display:block}
+  .photo-meta{padding:16px 20px;display:flex;justify-content:space-between;align-items:center}
+  .photo-meta .date{color:var(--muted);font-size:0.85rem}
+  .photo-counter{font-family:'Syne',sans-serif;font-size:0.85rem;color:var(--accent);font-weight:700}
+  .panel{display:flex;flex-direction:column;gap:20px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px}
+  .card h3{font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px}
+  .ai-box{display:flex;align-items:center;gap:12px;padding:14px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;margin-bottom:12px}
+  .ai-icon{font-size:1.4rem;flex-shrink:0}
+  .ai-text{font-size:0.88rem;line-height:1.5}
+  .ai-text strong{color:var(--accent);display:block;margin-bottom:2px}
+  .ai-text span{color:var(--muted)}
+  .cat-btns{display:flex;flex-direction:column;gap:8px}
+  .cat-btn{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:0.88rem;cursor:pointer;transition:all 0.15s;text-align:left}
+  .cat-btn:hover{border-color:var(--accent);background:rgba(245,166,35,0.08)}
+  .cat-btn.active{border-color:var(--accent);background:rgba(245,166,35,0.15);color:var(--accent);font-weight:600}
+  .cat-btn .em{font-size:1.1rem;width:24px;text-align:center}
+  #obra-input{width:100%;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.88rem;font-family:'Inter',sans-serif;margin-top:4px;display:none}
+  #obra-input:focus{outline:none;border-color:var(--accent)}
+  #obra-input::placeholder{color:var(--muted)}
+  #btn-confirm{width:100%;padding:14px;background:var(--accent);color:#000;border:none;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;transition:opacity 0.2s,transform 0.1s}
+  #btn-confirm:hover{opacity:0.88;transform:translateY(-1px)}
+  #btn-confirm:disabled{opacity:0.35;cursor:default;transform:none}
+  #btn-skip{width:100%;padding:10px;background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:10px;font-size:0.85rem;cursor:pointer;transition:all 0.15s;margin-top:8px}
+  #btn-skip:hover{border-color:var(--muted);color:var(--text)}
+  .prog-label{display:flex;justify-content:space-between;font-size:0.78rem;color:var(--muted);margin-bottom:6px}
+  .prog-wrap{height:6px;background:var(--surface2);border-radius:999px;overflow:hidden;margin-top:8px}
+  .prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:999px;transition:width 0.4s ease}
+  .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .stat{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center}
+  .stat .num{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:var(--accent);display:block}
+  .stat .lbl{font-size:0.75rem;color:var(--muted)}
+  .spinner{width:48px;height:48px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  #loading-msg{color:var(--muted);font-size:0.95rem}
+  .results-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;max-width:400px;width:100%;text-align:left}
+  .results-box h3{font-family:'Syne',sans-serif;font-size:0.9rem;color:var(--muted);margin-bottom:12px}
+  .res-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.88rem}
+  .res-row:last-child{border-bottom:none}
+  .res-num{font-weight:700;color:var(--accent)}
+  .toast{position:fixed;bottom:32px;right:32px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 20px;font-size:0.88rem;color:var(--text);opacity:0;transform:translateY(10px);transition:all 0.3s;z-index:999}
+  .toast.show{opacity:1;transform:translateY(0)}
+  .toast.success{border-color:var(--green);color:var(--green)}
+  .toast.error{border-color:var(--red);color:var(--red)}
 </style>
 </head>
 <body>
@@ -381,7 +89,7 @@
 <header>
   <div class="logo">Foto<span>Obras</span> SEAGRO</div>
   <div id="header-right">
-    <button id="btn-login" onclick="handleLogin()">🔗 Conectar Google Fotos</button>
+    <button class="btn-primary" id="btn-login" onclick="handleLogin()">🔗 Conectar Google</button>
     <div id="user-info" style="display:none">
       <img id="user-avatar" src="" alt="">
       <span id="user-name"></span>
@@ -392,136 +100,122 @@
 
 <main>
 
-  <!-- BOAS VINDAS -->
-  <div id="screen-welcome">
+  <div id="screen-welcome" class="screen active">
     <h1>Organize suas<br><span>fotos de obras</span></h1>
-    <p>Conecte sua conta Google e comece a triar as fotos com auxílio de IA. Álbuns organizados direto no Google Fotos.</p>
+    <p class="sub">Conecte sua conta Google, selecione as fotos e comece a triagem com auxílio de IA.</p>
     <div class="features">
-      <div class="feature-pill"><span>🏗️</span> Obras</div>
-      <div class="feature-pill"><span>👨‍👩‍👧</span> Família</div>
-      <div class="feature-pill"><span>👥</span> Clientes</div>
-      <div class="feature-pill"><span>🗑️</span> Lixo</div>
+      <div class="pill">🏗️ Obras</div>
+      <div class="pill">👨‍👩‍👧 Família</div>
+      <div class="pill">👥 Clientes</div>
+      <div class="pill">🗑️ Lixo</div>
     </div>
-    <p style="margin-top:8px; font-size:0.8rem; color:var(--muted)">Conecte sua conta Google Fotos para começar</p>
+    <p style="font-size:0.8rem;color:var(--muted)">Clique em "Conectar Google" para começar</p>
   </div>
 
-  <!-- LOADING -->
-  <div id="screen-loading">
+  <div id="screen-logged" class="screen">
+    <div style="font-size:3rem">📂</div>
+    <h2 style="font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800">Pronto!</h2>
+    <p class="sub">Clique abaixo para abrir o seletor e escolher as fotos que quer organizar.</p>
+    <button class="btn-big" id="btn-picker" onclick="openPicker()">📷 Selecionar fotos</button>
+  </div>
+
+  <div id="screen-loading" class="screen">
     <div class="spinner"></div>
-    <div id="loading-msg">Carregando suas fotos...</div>
+    <div id="loading-msg">Carregando...</div>
   </div>
 
-  <!-- TRIAGEM -->
   <div id="screen-triage">
     <div class="triage-layout">
-
-      <!-- FOTO -->
       <div class="photo-card">
         <img id="current-photo" src="" alt="Foto atual">
         <div class="photo-meta">
-          <span class="date" id="photo-date">—</span>
+          <span class="date" id="photo-name">—</span>
           <span class="photo-counter" id="photo-counter">0 / 0</span>
         </div>
       </div>
-
-      <!-- PAINEL -->
       <div class="panel">
-
-        <!-- PROGRESSO -->
-        <div class="panel-section">
+        <div class="card">
           <h3>Progresso</h3>
-          <div class="progress-label">
+          <div class="prog-label">
             <span id="prog-label">0 triadas</span>
             <span id="prog-pct">0%</span>
           </div>
-          <div class="progress-bar-wrap">
-            <div class="progress-bar-fill" id="prog-bar" style="width:0%"></div>
-          </div>
+          <div class="prog-wrap"><div class="prog-fill" id="prog-bar" style="width:0%"></div></div>
         </div>
-
-        <!-- SUGESTÃO IA -->
-        <div class="panel-section">
-          <h3>Sugestão da IA</h3>
-          <div class="ai-suggestion">
+        <div class="card">
+          <h3>Categoria</h3>
+          <div class="ai-box">
             <div class="ai-icon">🤖</div>
             <div class="ai-text">
-              <strong id="ai-cat-label">Analisando...</strong>
-              <span id="ai-reason">Aguardando foto</span>
+              <strong id="ai-label">Selecione uma categoria</strong>
+              <span id="ai-reason">ou confirme a sugestão</span>
             </div>
           </div>
-
-          <!-- CATEGORIAS -->
-          <div class="category-buttons">
-            <button class="cat-btn" onclick="selectCat('obras')" id="cat-obras">
-              <span class="emoji">🏗️</span> Obra
-            </button>
-            <input type="text" id="obra-name-input" placeholder="Nome da obra (ex: Barracão Norte)">
-            <button class="cat-btn" onclick="selectCat('familia')" id="cat-familia">
-              <span class="emoji">👨‍👩‍👧</span> Família / Pessoal
-            </button>
-            <button class="cat-btn" onclick="selectCat('clientes')" id="cat-clientes">
-              <span class="emoji">👥</span> Clientes
-            </button>
-            <button class="cat-btn" onclick="selectCat('lixo')" id="cat-lixo">
-              <span class="emoji">🗑️</span> Lixo
-            </button>
+          <div class="cat-btns">
+            <button class="cat-btn" onclick="selectCat('obras')" id="cat-obras"><span class="em">🏗️</span> Obra</button>
+            <input type="text" id="obra-input" placeholder="Nome da obra (ex: Barracão Norte)">
+            <button class="cat-btn" onclick="selectCat('familia')" id="cat-familia"><span class="em">👨‍👩‍👧</span> Família / Pessoal</button>
+            <button class="cat-btn" onclick="selectCat('clientes')" id="cat-clientes"><span class="em">👥</span> Clientes</button>
+            <button class="cat-btn" onclick="selectCat('lixo')" id="cat-lixo"><span class="em">🗑️</span> Lixo</button>
           </div>
         </div>
-
-        <!-- AÇÕES -->
         <div>
           <button id="btn-confirm" onclick="confirmCategory()" disabled>Confirmar e avançar →</button>
           <button id="btn-skip" onclick="skipPhoto()">Pular esta foto</button>
         </div>
-
-        <!-- STATS -->
-        <div class="panel-section">
+        <div class="card">
           <h3>Resumo</h3>
           <div class="stats-grid">
-            <div class="stat-item"><span class="num" id="stat-obras">0</span><span class="lbl">🏗️ Obras</span></div>
-            <div class="stat-item"><span class="num" id="stat-familia">0</span><span class="lbl">👨‍👩‍👧 Família</span></div>
-            <div class="stat-item"><span class="num" id="stat-clientes">0</span><span class="lbl">👥 Clientes</span></div>
-            <div class="stat-item"><span class="num" id="stat-lixo">0</span><span class="lbl">🗑️ Lixo</span></div>
+            <div class="stat"><span class="num" id="stat-obras">0</span><span class="lbl">🏗️ Obras</span></div>
+            <div class="stat"><span class="num" id="stat-familia">0</span><span class="lbl">👨‍👩‍👧 Família</span></div>
+            <div class="stat"><span class="num" id="stat-clientes">0</span><span class="lbl">👥 Clientes</span></div>
+            <div class="stat"><span class="num" id="stat-lixo">0</span><span class="lbl">🗑️ Lixo</span></div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 
-  <!-- CONCLUÍDO -->
-  <div id="screen-done">
+  <div id="screen-done" class="screen">
     <div style="font-size:3rem">🎉</div>
-    <h2>Triagem concluída!</h2>
-    <p>Todas as fotos foram categorizadas.</p>
-    <button id="btn-login" style="margin-top:16px" onclick="resetSession()">Recomeçar</button>
+    <h2 style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:800">Triagem concluída!</h2>
+    <p style="color:var(--muted)">Resumo das fotos categorizadas:</p>
+    <div class="results-box">
+      <h3>Resultado final</h3>
+      <div class="res-row"><span>🏗️ Obras</span><span class="res-num" id="final-obras">0</span></div>
+      <div class="res-row"><span>👨‍👩‍👧 Família/Pessoal</span><span class="res-num" id="final-familia">0</span></div>
+      <div class="res-row"><span>👥 Clientes</span><span class="res-num" id="final-clientes">0</span></div>
+      <div class="res-row"><span>🗑️ Lixo</span><span class="res-num" id="final-lixo">0</span></div>
+    </div>
+    <button class="btn-big" onclick="openPicker()">Triar mais fotos</button>
   </div>
 
 </main>
 
 <div class="toast" id="toast"></div>
 
-<!-- Google Identity Services -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://apis.google.com/js/api.js"></script>
 
 <script>
 const CLIENT_ID = '504528754299-ita27njppi7v091vc4c5mrm61ufmiuih.apps.googleusercontent.com';
-const SCOPES = 'https://www.googleapis.com/auth/photoslibrary.readonly https://www.googleapis.com/auth/photoslibrary.appendonly';
+const API_KEY   = 'AIzaSyCMUUd-Ll1L8Nx9t0EEEOOusye2HLFlnt0';
+const SCOPE     = 'https://www.googleapis.com/auth/drive.readonly';
 
 let accessToken = null;
+let tokenClient = null;
+let pickerReady = false;
 let photos = [];
 let currentIndex = 0;
 let selectedCat = null;
-let stats = { obras: 0, familia: 0, clientes: 0, lixo: 0 };
-let tokenClient = null;
+let stats = { obras:0, familia:0, clientes:0, lixo:0 };
 
-// ─── AUTH ───────────────────────────────────────────
-function initGoogleAuth() {
+function initAuth() {
   tokenClient = google.accounts.oauth2.initTokenClient({
     client_id: CLIENT_ID,
-    scope: SCOPES,
+    scope: SCOPE,
     callback: (resp) => {
-      if (resp.error) { showToast('Erro ao autenticar: ' + resp.error, 'error'); return; }
+      if (resp.error) { showToast('Erro: ' + resp.error, 'error'); return; }
       accessToken = resp.access_token;
       onAuthSuccess();
     }
@@ -529,15 +223,13 @@ function initGoogleAuth() {
 }
 
 function handleLogin() {
-  if (!tokenClient) { initGoogleAuth(); }
+  if (!tokenClient) initAuth();
   tokenClient.requestAccessToken({ prompt: 'consent' });
 }
 
 function handleLogout() {
   if (accessToken) google.accounts.oauth2.revoke(accessToken);
-  accessToken = null;
-  photos = [];
-  currentIndex = 0;
+  accessToken = null; photos = []; currentIndex = 0;
   stats = { obras:0, familia:0, clientes:0, lixo:0 };
   document.getElementById('user-info').style.display = 'none';
   document.getElementById('btn-login').style.display = '';
@@ -545,7 +237,6 @@ function handleLogout() {
 }
 
 async function onAuthSuccess() {
-  // Buscar perfil do usuário
   try {
     const r = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
       headers: { Authorization: 'Bearer ' + accessToken }
@@ -556,127 +247,81 @@ async function onAuthSuccess() {
     document.getElementById('user-info').style.display = 'flex';
     document.getElementById('btn-login').style.display = 'none';
   } catch(e) {}
-
-  showScreen('loading');
-  await loadPhotos();
+  showScreen('logged');
+  gapi.load('picker', () => { pickerReady = true; });
 }
 
-// ─── CARREGAR FOTOS ──────────────────────────────────
-async function loadPhotos() {
-  setLoadingMsg('Buscando fotos do Google Fotos...');
-  photos = [];
-  let pageToken = null;
+function openPicker() {
+  if (!pickerReady) { showToast('Aguarde um momento...', ''); setTimeout(openPicker, 1000); return; }
+  if (!accessToken) { showToast('Faça login primeiro', 'error'); return; }
 
-  try {
-    do {
-      const body = { pageSize: 100, filters: { mediaTypeFilter: { mediaTypes: ['PHOTO'] } } };
-      if (pageToken) body.pageToken = pageToken;
+  const picker = new google.picker.PickerBuilder()
+    .setOAuthToken(accessToken)
+    .setDeveloperKey(API_KEY)
+    .setCallback(pickerCallback)
+    .setTitle('Selecione as fotos para triagem')
+    .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
+    .addView(new google.picker.PhotosView())
+    .addView(new google.picker.PhotoAlbumView())
+    .addView(new google.picker.DocsView(google.picker.ViewId.PHOTOS))
+    .build();
 
-      const r = await fetch('https://photoslibrary.googleapis.com/v1/mediaItems:search', {
-        method: 'POST',
-        headers: {
-          Authorization: 'Bearer ' + accessToken,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-      });
-      const data = await r.json();
+  picker.setVisible(true);
+}
 
-      if (data.error) {
-        showToast('Erro da API: ' + data.error.message, 'error');
-        showScreen('welcome');
-        return;
-      }
-
-      if (data.mediaItems) photos.push(...data.mediaItems);
-      pageToken = data.nextPageToken;
-      setLoadingMsg(`Carregando fotos... ${photos.length} encontradas`);
-
-      // Limitar a 500 por sessão para performance
-      if (photos.length >= 500) break;
-
-    } while (pageToken);
-
-    if (photos.length === 0) {
-      showToast('Nenhuma foto encontrada.', 'error');
-      showScreen('welcome');
-      return;
-    }
-
-    showToast(`${photos.length} fotos carregadas!`, 'success');
+function pickerCallback(data) {
+  if (data.action === google.picker.Action.PICKED) {
+    photos = data.docs || [];
+    if (!photos.length) return;
     currentIndex = 0;
+    stats = { obras:0, familia:0, clientes:0, lixo:0 };
+    updateStats();
     showScreen('triage');
     loadCurrentPhoto();
-
-  } catch(e) {
-    showToast('Erro ao carregar fotos: ' + e.message, 'error');
-    showScreen('welcome');
+    showToast(photos.length + ' fotos selecionadas!', 'success');
   }
 }
 
-// ─── TRIAGEM ─────────────────────────────────────────
 function loadCurrentPhoto() {
-  if (currentIndex >= photos.length) { showScreen('done'); return; }
+  if (currentIndex >= photos.length) {
+    document.getElementById('final-obras').textContent = stats.obras;
+    document.getElementById('final-familia').textContent = stats.familia;
+    document.getElementById('final-clientes').textContent = stats.clientes;
+    document.getElementById('final-lixo').textContent = stats.lixo;
+    showScreen('done');
+    return;
+  }
 
-  const photo = photos[currentIndex];
+  const p = photos[currentIndex];
   const img = document.getElementById('current-photo');
+  const thumb = p.thumbnails && p.thumbnails.length ? p.thumbnails[p.thumbnails.length-1].url : p.url;
+  img.src = thumb || '';
+  document.getElementById('photo-name').textContent = p.name || 'Sem nome';
+  document.getElementById('photo-counter').textContent = (currentIndex+1) + ' / ' + photos.length;
 
-  // URL base com tamanho
-  img.src = photo.baseUrl + '=w1200-h900';
-  img.onerror = () => { img.src = photo.baseUrl; };
-
-  // Data
-  const dt = photo.mediaMetadata?.creationTime;
-  document.getElementById('photo-date').textContent = dt
-    ? new Date(dt).toLocaleDateString('pt-BR', { day:'2-digit', month:'short', year:'numeric' })
-    : 'Data desconhecida';
-
-  // Contador
-  document.getElementById('photo-counter').textContent = `${currentIndex + 1} / ${photos.length}`;
-
-  // Progresso
-  const pct = Math.round((currentIndex / photos.length) * 100);
+  const pct = Math.round(currentIndex / photos.length * 100);
   document.getElementById('prog-bar').style.width = pct + '%';
   document.getElementById('prog-pct').textContent = pct + '%';
-  document.getElementById('prog-label').textContent = `${currentIndex} triadas`;
+  document.getElementById('prog-label').textContent = currentIndex + ' triadas';
 
-  // Reset seleção
   selectedCat = null;
   document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('btn-confirm').disabled = true;
-  document.getElementById('obra-name-input').style.display = 'none';
+  document.getElementById('obra-input').style.display = 'none';
+  document.getElementById('obra-input').value = '';
 
-  // Sugestão IA automática
-  autoSuggest(photo);
+  autoSuggest(p);
 }
 
-function autoSuggest(photo) {
-  document.getElementById('ai-cat-label').textContent = 'Analisando...';
-  document.getElementById('ai-reason').textContent = 'Verificando metadados';
-
-  // Análise por metadados (heurística simples enquanto não há visão de máquina)
-  const filename = (photo.filename || '').toLowerCase();
-  const desc = (photo.description || '').toLowerCase();
-  const ts = photo.mediaMetadata?.creationTime;
-  const hour = ts ? new Date(ts).getHours() : -1;
-
-  let cat = 'obras';
-  let reason = 'Foto sem contexto identificável — classificada como obra por padrão.';
-
-  if (/selfie|pessoa|familia|aniver|natal|férias|praia|viagem/.test(filename + desc)) {
-    cat = 'familia'; reason = 'Nome ou descrição sugere foto pessoal.';
-  } else if (/cliente|reunião|visita|contrato/.test(filename + desc)) {
-    cat = 'clientes'; reason = 'Parece relacionada a clientes.';
-  } else if (/screenshot|screen|meme|print|forward/.test(filename)) {
-    cat = 'lixo'; reason = 'Screenshot ou imagem encaminhada.';
-  } else if (filename.startsWith('img_') || filename.startsWith('photo_') || filename.startsWith('dsc')) {
-    cat = 'obras'; reason = 'Padrão típico de foto de campo.';
-  }
-
+function autoSuggest(p) {
+  const name = (p.name || '').toLowerCase();
+  let cat = 'obras', reason = 'Padrão típico de foto de campo.';
+  if (/selfie|familia|aniver|natal|férias|praia|viagem/.test(name)) { cat='familia'; reason='Nome sugere foto pessoal.'; }
+  else if (/cliente|reunião|visita|contrato/.test(name)) { cat='clientes'; reason='Parece de cliente.'; }
+  else if (/screenshot|screen|meme|print|whatsapp/.test(name)) { cat='lixo'; reason='Screenshot ou encaminhada.'; }
   const labels = { obras:'🏗️ Obra', familia:'👨‍👩‍👧 Família/Pessoal', clientes:'👥 Clientes', lixo:'🗑️ Lixo' };
-  document.getElementById('ai-cat-label').textContent = labels[cat];
+  document.getElementById('ai-label').textContent = labels[cat];
   document.getElementById('ai-reason').textContent = reason;
-
   selectCat(cat);
 }
 
@@ -685,80 +330,20 @@ function selectCat(cat) {
   document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('cat-' + cat).classList.add('active');
   document.getElementById('btn-confirm').disabled = false;
-  document.getElementById('obra-name-input').style.display = (cat === 'obras') ? 'block' : 'none';
+  document.getElementById('obra-input').style.display = cat === 'obras' ? 'block' : 'none';
 }
 
-async function confirmCategory() {
+function confirmCategory() {
   if (!selectedCat) return;
-
   stats[selectedCat]++;
   updateStats();
-
-  // Tentar adicionar ao álbum no Google Fotos
-  const obraName = document.getElementById('obra-name-input').value.trim();
-  const albumName = getAlbumName(selectedCat, obraName);
-
-  try {
-    await addToAlbum(photos[currentIndex].id, albumName);
-    showToast(`✓ Adicionado a "${albumName}"`, 'success');
-  } catch(e) {
-    showToast(`Salvo localmente (sem acesso ao álbum)`, '');
-  }
-
+  showToast('✓ Categorizado!', 'success');
   currentIndex++;
   loadCurrentPhoto();
 }
 
-function skipPhoto() {
-  currentIndex++;
-  loadCurrentPhoto();
-}
+function skipPhoto() { currentIndex++; loadCurrentPhoto(); }
 
-function getAlbumName(cat, obraName) {
-  const map = {
-    obras: obraName ? `🏗️ Obra - ${obraName}` : '🏗️ Obras - Sem nome',
-    familia: '👨‍👩‍👧 Família e Pessoal',
-    clientes: '👥 Clientes',
-    lixo: '🗑️ Para apagar'
-  };
-  return map[cat];
-}
-
-// Cache de álbuns criados nesta sessão
-const albumCache = {};
-
-async function getOrCreateAlbum(name) {
-  if (albumCache[name]) return albumCache[name];
-
-  // Listar álbuns existentes
-  const r = await fetch('https://photoslibrary.googleapis.com/v1/albums?pageSize=50', {
-    headers: { Authorization: 'Bearer ' + accessToken }
-  });
-  const data = await r.json();
-  const existing = (data.albums || []).find(a => a.title === name);
-  if (existing) { albumCache[name] = existing.id; return existing.id; }
-
-  // Criar álbum
-  const rc = await fetch('https://photoslibrary.googleapis.com/v1/albums', {
-    method: 'POST',
-    headers: { Authorization: 'Bearer ' + accessToken, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ album: { title: name } })
-  });
-  const album = await rc.json();
-  albumCache[name] = album.id;
-  return album.id;
-}
-
-async function addToAlbum(mediaItemId, albumName) {
-  const albumId = await getOrCreateAlbum(albumName);
-  await fetch(`https://photoslibrary.googleapis.com/v1/albums/${albumId}:batchAddMediaItems`, {
-    method: 'POST',
-    headers: { Authorization: 'Bearer ' + accessToken, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ mediaItemIds: [mediaItemId] })
-  });
-}
-
-// ─── UTILS ───────────────────────────────────────────
 function updateStats() {
   document.getElementById('stat-obras').textContent = stats.obras;
   document.getElementById('stat-familia').textContent = stats.familia;
@@ -767,38 +352,31 @@ function updateStats() {
 }
 
 function showScreen(name) {
-  document.getElementById('screen-welcome').style.display = name === 'welcome' ? 'flex' : 'none';
-  document.getElementById('screen-loading').style.display = name === 'loading' ? 'flex' : 'none';
-  document.getElementById('screen-triage').style.display = name === 'triage' ? 'block' : 'none';
-  document.getElementById('screen-done').style.display = name === 'done' ? 'flex' : 'none';
-}
-
-function setLoadingMsg(msg) {
-  document.getElementById('loading-msg').textContent = msg;
+  ['welcome','logged','loading','done'].forEach(s => {
+    const el = document.getElementById('screen-'+s);
+    if (el) el.style.display = 'none';
+  });
+  document.getElementById('screen-triage').style.display = 'none';
+  if (name === 'triage') {
+    document.getElementById('screen-triage').style.display = 'block';
+  } else {
+    const el = document.getElementById('screen-'+name);
+    if (el) el.style.display = 'flex';
+  }
 }
 
 let toastTimer;
-function showToast(msg, type = '') {
+function showToast(msg, type) {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast show ' + type;
+  t.textContent = msg; t.className = 'toast show ' + (type||'');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => { t.className = 'toast'; }, 3000);
 }
 
-function resetSession() {
-  photos = []; currentIndex = 0;
-  stats = { obras:0, familia:0, clientes:0, lixo:0 };
-  updateStats();
-  showScreen('welcome');
-}
-
-// Init
 window.addEventListener('load', () => {
   showScreen('welcome');
-  // Pré-inicializar tokenClient quando a lib carregar
   const check = setInterval(() => {
-    if (window.google?.accounts?.oauth2) { initGoogleAuth(); clearInterval(check); }
+    if (window.google?.accounts?.oauth2) { initAuth(); clearInterval(check); }
   }, 300);
 });
 </script>
