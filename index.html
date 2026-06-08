@@ -199,7 +199,7 @@
 
 <script>
 const CLIENT_ID = '504528754299-ita27njppi7v091vc4c5mrm61ufmiuih.apps.googleusercontent.com';
-const API_KEY   = 'AIzaSyBTPpk8oP5PBwubkKKTTaTxRejhbZXNKsg';
+let API_KEY = sessionStorage.getItem('fotoobras_apikey') || '';
 const SCOPE     = 'https://www.googleapis.com/auth/drive.readonly https://www.googleapis.com/auth/drive.file';
 
 let accessToken = null;
@@ -252,6 +252,12 @@ async function onAuthSuccess() {
 }
 
 function openPicker() {
+  if (!API_KEY) {
+    const key = prompt('Cole sua Chave de API do Google Cloud:');
+    if (!key) return;
+    API_KEY = key.trim();
+    sessionStorage.setItem('fotoobras_apikey', API_KEY);
+  }
   if (!pickerReady) { showToast('Aguarde um momento...', ''); setTimeout(openPicker, 1000); return; }
   if (!accessToken) { showToast('Faça login primeiro', 'error'); return; }
 
